@@ -1,0 +1,19 @@
+{
+    "name": "测试插件",
+    "id": "TestText",
+    "version": "1.0.0",
+    "description": "测试插件",
+    "_dp_type":"nativeplugin",
+    "_dp_nativeplugin":{
+        "android": {
+            "plugins": [
+                {
+                    "type": "component",
+                    "name": "TestText",
+                    "class": "com.ali.myapplication.TestText"
+                }
+            ],
+            "integrateType": "aar"
+        }
+    }
+}
