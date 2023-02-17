@@ -1,7 +1,7 @@
 <template>
 	<view class="mpopup">
 		<view class="mpopup-body">
-			<!-- <view class="mpopup-body-close" @click="showPopup=false">关闭</view> -->
+			<!-- 表头 -->
 			<view class="mpopup-body-thead">
 				<view class="mpopup-body-thead-name">姓名</view>
 				<view class="mpopup-body-thead-other">
@@ -11,33 +11,19 @@
 					<view class="mpopup-body-thead-other-accumulative">累计超时</view>
 				</view>
 			</view>
-
-			<view class="mpopup-body-tbody" v-if="listObj.divisionSettingList.length>0">
-				<view class="mpopup-body-tbody-tr">
-					<view class="mpopup-body-tbody-tr-count">总计</view>
-					<view class="mpopup-body-tbody-tr-others">
-						<view class="mpopup-body-tbody-tr-others-notAudit" @click.stop="handleNavigateTo(1)">
-							{{listObj.notAuditTotal}}
-						</view>
-						<view class="mpopup-body-tbody-tr-others-timeOut" @click.stop="handleNavigateTo(2)">
-							{{listObj.timeOutTotal}}
-						</view>
-						<view class="mpopup-body-tbody-tr-others-accumulative">{{listObj.cumulativeTimeoutTotal}}
-						</view>
-
-					</view>
-				</view>
-				<view v-for="(item,index) in listObj.divisionSettingList" class="mpopup-body-tbody-tr">
+			<!-- 表体 -->
+			<view class="mpopup-body-tbody" v-if="divisionSettingList.length>0">
+				<view v-for="(item,index) in divisionSettingList" class="mpopup-body-tbody-tr">
 					<view class="mpopup-body-tbody-tr-name">{{item.userName}}</view>
 					<view class="mpopup-body-tbody-tr-other">
 						<view class="mpopup-body-tbody-tr-other-box" v-for="(items,indexs) in item.divisionSettingInfo">
 
 
 							<view class="mpopup-body-tbody-tr-other-box-unit">{{items.orgName}}</view>
-							<view class="mpopup-body-tbody-tr-other-box-notAudit" @click.stop="handleNavigateTo(1)">
+							<view class="mpopup-body-tbody-tr-other-box-notAudit">
 								{{items.notAudit}}
 							</view>
-							<view class="mpopup-body-tbody-tr-other-box-timeOut" @click.stop="handleNavigateTo(2)">
+							<view class="mpopup-body-tbody-tr-other-box-timeOut">
 								{{items.timeOut}}
 							</view>
 							<view class="mpopup-body-tbody-tr-other-box-accumulative">{{items.cumulativeTimeout}}
@@ -46,7 +32,6 @@
 					</view>
 				</view>
 			</view>
-			<uni-page :total="total" :pageSize="param.limit" @change="changePage"></uni-page>
 		</view>
 	</view>
 </template>
@@ -192,6 +177,179 @@
 	}
 </script>
 
-<style>
+<style lang="less" scoped>
+	.mpopup {
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 9999;
+		background: rgba(0, 0, 0, .5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
+		&-body {
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			background: #fff;
+			padding: 30rpx;
+			overflow: auto;
+			// border-radius: 2%;
+
+			&-close {
+				width: 100%;
+				text-align: right;
+				padding-bottom: 20rpx;
+			}
+
+			&-thead {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				line-height: 60rpx;
+				border-bottom: 1rpx solid #757575;
+
+				&-name {
+					width: 20%;
+					text-align: center;
+					border-top: 1rpx solid #757575;
+					border-left: 1rpx solid #757575;
+				}
+
+				&-other {
+					width: 80%;
+					display: flex;
+					justify-content: space-between;
+
+					&-unit {
+						width: 40%;
+						text-align: center;
+						border-left: 1rpx solid #757575;
+						border-top: 1rpx solid #757575;
+					}
+
+					&-notAudit {
+						width: 20%;
+						text-align: center;
+						border-left: 1rpx solid #757575;
+						border-top: 1rpx solid #757575;
+					}
+
+					&-timeOut {
+						width: 20%;
+						text-align: center;
+						border-left: 1rpx solid #757575;
+						border-top: 1rpx solid #757575;
+					}
+
+					&-accumulative {
+						width: 20%;
+						text-align: center;
+						border-left: 1rpx solid #757575;
+						border-right: 1rpx solid #757575;
+						border-top: 1rpx solid #757575;
+					}
+				}
+			}
+
+			&-tbody {
+				width: 100%;
+
+				&-tr {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+
+					&-count {
+						width: 51.6%;
+						text-align: center;
+						line-height: 60rpx;
+						border-left: 1rpx solid #757575;
+						border-right: 1rpx solid #757575;
+						border-bottom: 1rpx solid #757575;
+					}
+
+					&-others {
+						width: 48%;
+						display: flex;
+						flex-direction: row;
+						line-height: 60rpx;
+
+						&-notAudit {
+							width: 33.3%;
+							text-align: center;
+							border-right: 1rpx solid #757575;
+							border-bottom: 1rpx solid #757575;
+						}
+
+						&-timeOut {
+							width: 33.3%;
+							text-align: center;
+							border-right: 1rpx solid #757575;
+							border-bottom: 1rpx solid #757575;
+						}
+
+						&-accumulative {
+							width: 33.3%;
+							text-align: center;
+							border-right: 1rpx solid #757575;
+							border-bottom: 1rpx solid #757575;
+						}
+					}
+
+					&-name {
+						width: 20%;
+						word-break: break-word;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						border: 1rpx solid #757575;
+						border-top: none;
+					}
+
+					&-other {
+						width: 80%;
+						display: flex;
+						flex-direction: column;
+
+						&-box {
+							width: 100%;
+							line-height: 60rpx;
+							display: flex;
+							justify-content: space-between;
+							border-bottom: 1rpx solid #757575;
+
+							&-unit {
+								width: 40%;
+								text-align: center;
+								border-right: 1rpx solid #757575;
+							}
+
+							&-notAudit {
+								width: 20%;
+								text-align: center;
+								border-right: 1rpx solid #757575;
+							}
+
+							&-timeOut {
+								width: 20%;
+								text-align: center;
+								border-right: 1rpx solid #757575;
+							}
+
+							&-accumulative {
+								width: 20%;
+								text-align: center;
+								border-right: 1rpx solid #757575;
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
 </style>

@@ -5,11 +5,6 @@
 			"navigationBarTitleText": "uni-app"
 		}
 	}, {
-		"path": "components/xlh-bluetooth/xlh-bluetooth",
-		"style": {
-			"navigationBarTitleText": "uni-app"
-		}
-	}, {
 		"path": "pages/xlh-picker/xlh-picker",
 		"style": {
 			"navigationBarTitleText": "uni-app"
@@ -27,7 +22,12 @@
 			"navigationBarTitleText": "",
 			"enablePullDownRefresh": false
 		}
-
+	}, {
+		"path": "pages/table/table",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
 	}],
 	"tabBar": {
 		"color": "#7A7E83",

@@ -4,7 +4,7 @@
 		<uni-list-item title="蓝牙" to='../' @click="navigateToSession('/components/xlh-bluetooth/xlh-bluetooth')"
 			showArrow />
 		<uni-list-item title="地址" to="../" @click="navigateToSession('/pages/xlh-picker/xlh-picker')" showArrow />
-		<uni-list-item title="table" to="../" @click="navigateToSession('/pages/xlh-picker/xlh-picker')" showArrow />
+		<button type="primary" @click="handleNavigateTo()">table</button> 
 	</view>
 </template>
 
@@ -21,6 +21,11 @@
 					url: url
 				});
 			},
+			handleNavigateTo(){
+				uni.navigateTo({
+					url:'/pages/table/table'
+				})
+			}
 		}
 	}
 </script>

@@ -53,7 +53,7 @@
 						year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds
 					);
 				};
-				return timeFormat("UTC", val),
+				return timeFormat("UTC", val);
 			},
 			getStatic(val) {
 				switch (val) {
