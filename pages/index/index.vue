@@ -5,6 +5,8 @@
 			showArrow />
 		<uni-list-item title="地址" to="../" @click="navigateToSession('/pages/xlh-picker/xlh-picker')" showArrow />
 		<button type="primary" @click="handleNavigateTo()">table</button> 
+		<button type="primary" @click="handleNavigateTo2()">蓝牙</button> 
+		<button type="primary" @click="handleNavigateTo3()">蓝牙</button> 
 	</view>
 </template>
 
@@ -24,6 +26,18 @@
 			handleNavigateTo(){
 				uni.navigateTo({
 					url:'/pages/table/table'
+				})
+			},
+			
+			handleNavigateTo2(){
+				uni.navigateTo({
+					url:'/pages/bluetooth/bluetooth'
+				})
+			},
+			
+			handleNavigateTo3(){
+				uni.navigateTo({
+					url:'/pages/bluetooth2/bluetooth2'
 				})
 			}
 		}

@@ -28,7 +28,22 @@
 			"navigationBarTitleText": "",
 			"enablePullDownRefresh": false
 		}
-	}],
+	}, {
+		"path": "pages/bluetooth/bluetooth",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	}    ,{
+            "path" : "pages/bluetooth2/bluetooth2",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#3cc51f",
