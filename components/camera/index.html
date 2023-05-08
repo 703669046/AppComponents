@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="./css/index.css" />
+		<script src="./js/jq.js" type="text/javascript" charset="utf-8"></script>
+		<!-- uni 的 SDK -->
+		<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+	</head>
+
+	<body class='body'>
+		<!-- 没有画面时的遮罩 -->
+		<div id="max-bg"></div>
+		<video id="webcam" loop preload> </video>
+	</body>
+
+	<script type="text/javascript">
+	
+	// 获取webview页面数据
+	var info = JSON.parse( getUrlParam('data'))
+	$(function() {
+		// 初始化
+		initVideo()
+		// uni.app事件
+		document.addEventListener('UniAppJSBridgeReady', function() {
+			
+		});
+	})
+	// 获取数据函数
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg); 
+		if (r != null) return unescape(r[2]); return null;
+	}
+	// 摄像头初始化
+	function initVideo() {
+		let that = this;
+		this.video = document.getElementById("webcam");
+		// 如果要全屏就让宽高都是等于屏幕高度
+		if(info && info.screenHeight){
+			this.videoHeight = info.screenHeight || 667
+			this.videoWidth = info.screenHeight || 667
+		}else{
+			this.videoHeight =  667
+			this.videoWidth =  667
+		}
+		
+		setTimeout(() => {
+			if (
+				navigator.mediaDevices.getUserMedia ||
+				navigator.getUserMedia ||
+				navigator.webkitGetUserMedia ||
+				navigator.mozGetUserMedia
+			) {
+				//调用用户媒体设备, 访问摄像头
+				this.getUserMedia({
+						video: {
+							width: {
+								ideal: that.videoWidth,
+								max: that.videoWidth
+							},
+							height: {
+								ideal: that.videoHeight,
+								max: that.videoHeight
+							},
+							facingMode: 'user', //前置摄像头
+							// facingMode: { exact: "environment" }, //后置摄像头
+							frameRate: {
+								ideal: 30,
+								min: 10
+							}
+						}
+					},
+					this.videoSuccess,
+					this.videoError
+				);
+			} else {
+			}
+		}, 300);
+	}
+	
+	// 获取用户设备
+	function getUserMedia(constraints, success, error) {
+		if (navigator.mediaDevices.getUserMedia) {
+			//最新的标准API
+			navigator.mediaDevices
+				.getUserMedia(constraints)
+				.then(success)
+				.catch(error);
+		} else if (navigator.webkitGetUserMedia) {
+			//webkit核心浏览器
+			navigator.webkitGetUserMedia(constraints, success, error);
+		} else if (navigator.mozGetUserMedia) {
+			//firfox浏览器
+			navigator.mozGetUserMedia(constraints, success, error);
+		} else if (navigator.getUserMedia) {
+			//旧版API
+			navigator.getUserMedia(constraints, success, error);
+		}
+	}
+	
+	// 开始有画面
+	function videoSuccess(stream) {
+		this.mediaStreamTrack = stream;
+		this.video.srcObject = stream;
+		this.video.play();
+		
+		setTimeout(function(){
+			$("#max-bg").css('background-color', 'rgba(0,0,0,0)')
+			
+			// 这里处理我的的东西
+			
+			
+		},600)
+		
+		
+		
+	}
+	
+	function videoError(error) {
+		console.log('摄像头获取错误')
+		alert('摄像头获取错误')
+	}
+	</script>
+
+</html>

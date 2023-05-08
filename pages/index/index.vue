@@ -7,6 +7,7 @@
 		<button type="primary" @click="handleNavigateTo()">table</button> 
 		<button type="primary" @click="handleNavigateTo2()">蓝牙</button> 
 		<button type="primary" @click="handleNavigateTo3()">蓝牙</button> 
+		<button type="primary" @click="handleNavigateTo6()">拍照</button> 
 	</view>
 </template>
 
@@ -38,6 +39,12 @@
 			handleNavigateTo3(){
 				uni.navigateTo({
 					url:'/pages/bluetooth2/bluetooth2'
+				})
+			},
+			
+			handleNavigateTo6(){
+				uni.navigateTo({
+					url:'/pages/user/face'
 				})
 			}
 		}

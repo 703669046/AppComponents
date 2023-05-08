@@ -51,6 +51,8 @@
 				deviceId: "", //选中的deviceId
 				canvas_width: 240,
 				canvas_height: 240,
+				blueTooth1:'42:02:22:10:00:F5',
+				blueTooth2:'42:02:22:10:00:E3'
 			}
 		},
 		//页面卸载是关闭蓝牙链接
@@ -88,6 +90,12 @@
 							uni.onBluetoothDeviceFound(devices => {
 								console.log("发现设备: " + JSON.stringify(devices));
 								//不重复,就添加到devicesList中,
+								if(devices.devices[0].deviceId=== self.blueTooth1||devices.devices[0].deviceId=== self.blueTooth2){
+									self.devicesList.push(devices.devices[0]);
+									self.stopBluetoothDevicesDiscovery();
+									console.log('蓝牙关闭')
+									return;
+								}
 								if (!self.devicesList.some(item => {
 										return item.deviceId === devices.devices[0].deviceId
 									})) {
